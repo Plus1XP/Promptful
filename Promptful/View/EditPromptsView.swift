@@ -71,15 +71,31 @@ struct EditPromptsView: View {
             if let prompt = prompt {
                 self.vm.authorText = prompt.author ?? ""
                 self.vm.quoteText = prompt.quote ?? ""
+            } else {
+                self.vm.authorText = ""
+                self.vm.quoteText = ""
             }
         }
         .onChange(of: vm.authorText + vm.quoteText, {
             debugPrint("Saving Author and Quote changes to CoreData")
-            self.updatePrompt(author: vm.authorText, quote: vm.quoteText)
+            if let prompt = prompt {
+                self.updatePrompt(author: vm.authorText, quote: vm.quoteText)
+            } else {
+                createNewNote()
+                self.updatePrompt(author: vm.authorText, quote: vm.quoteText)
+            }
         })
     }
     
     // MARK: Core Data Operations
+    private func createNewNote() {
+        if (vm.authorText.isEmpty) && (vm.quoteText.isEmpty) {
+            return
+        }
+        prompt = nil
+        prompt = vm.addNewEntry()
+    }
+    
     func updatePrompt(author: String, quote: String) {
         if (author.isEmpty) && (quote.isEmpty) {
             return

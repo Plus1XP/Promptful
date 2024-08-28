@@ -81,20 +81,15 @@ struct PromptView: View {
                 // MARK: Core Data Operations
                 vm.searchNotes(with: searchText)
             }
-//            .toolbar {
-//                ToolbarItem(placement: .navigationBarTrailing) {
-//                    
-//                    Button {
-//                        // Create a new empty note here:
-//                        createNewNote()
-//                        
-//                    } label: {
-//                        Image(systemName: "note.text.badge.plus")
-//                            .foregroundColor(Color(UIColor.systemOrange))
-//                    }
-//                }
-//            }
-            
+            .toolbar {
+                ToolbarItem(placement: .navigationBarTrailing) {
+                    Button {
+                        // Create pin filter
+                    } label: {
+                        Image(systemName: "line.3.horizontal.decrease.circle")
+                    }
+                }
+            }
         } detail: {
             // item details
             if let selectedPrompt {
@@ -109,10 +104,10 @@ struct PromptView: View {
     
     // MARK: Core Data Operations
     
-    private func createNewNote() {
-        selectedPrompt = nil
-        selectedPrompt = vm.addNewEntry()
-    }
+//    private func createNewNote() {
+//        selectedPrompt = nil
+//        selectedPrompt = vm.addNewEntry()
+//    }
 
     private func deleteNote(in header: Date, at offsets: IndexSet) {
         offsets.forEach { index in
