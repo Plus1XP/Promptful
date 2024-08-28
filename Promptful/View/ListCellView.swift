@@ -45,7 +45,8 @@ struct ListCellView: View {
             }
         }
         .frame(maxHeight: .infinity)
-        .padding(10)
+        .padding([.leading, .trailing], 10)
+        .padding([.top, .bottom], 15)
         .background(
             Rectangle()
                 .fill(Color.setFieldBackgroundColor(colorScheme: colorScheme).opacity(1))

@@ -61,7 +61,6 @@ struct PersistenceController {
         container.viewContext.automaticallyMergesChangesFromParent = true
         // Added This!
         container.viewContext.mergePolicy = NSMergePolicy.mergeByPropertyStoreTrump
-        container.viewContext.undoManager = UndoManager()
     }
     
     // Added This!

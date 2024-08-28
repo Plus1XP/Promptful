@@ -21,11 +21,9 @@ struct EditPromptsView: View {
                 get: {
                     vm.authorText // retrieve the value
                 }, set: {
-                  vm.registerAuthorUndo($0, in: undoManager) // set the value
+                    vm.registerAuthorUndo($0, in: undoManager) // set the value
                 }))
-//            TextField("Author...", text: $author, axis: .vertical)
-//                .font(.title.bold())
-                .submitLabel(.next)
+            .submitLabel(.next)
             .onChange(of: vm.authorText, {
                 guard let newValueLastChar = vm.authorText.last else { return }
                     if newValueLastChar == "\n" {
@@ -40,7 +38,6 @@ struct EditPromptsView: View {
                   vm.registerQuoteUndo($0, in: undoManager) // set the value
                 }))
                 .scrollDisabled(true)
-//                .font(.title3)
                 .focused($contentEditorInFocus)
                 .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .topLeading)
         }
@@ -55,13 +52,13 @@ struct EditPromptsView: View {
                     } label: {
                         Image(systemName: "arrow.uturn.backward.circle")
                     }
-                    .disabled(undoManager?.undoCount == 0)
+                    .disabled(undoManager?.canUndo == false)
                     Button {
                         undoManager?.redo()
                     } label: {
                         Image(systemName: "arrow.uturn.forward.circle")
                     }
-                    .disabled(undoManager?.redoCount == 0)
+                    .disabled(undoManager?.canRedo == false)
                     Button {
                         
                     } label: {
@@ -70,18 +67,6 @@ struct EditPromptsView: View {
                 }
             }
         }
-//        .toolbar {
-//            ToolbarItem(placement: .keyboard) {
-//                HStack {
-//                    Spacer()
-//                    Button("Done") {
-//                        self.hideKeyboard()
-//                        // Save to Core Data
-//                        self.updatePrompt(author: author, quote: quote)
-//                    }
-//                }
-//            }
-//        }
         .onAppear {
             if let prompt = prompt {
                 self.vm.authorText = prompt.author ?? ""
@@ -89,7 +74,7 @@ struct EditPromptsView: View {
             }
         }
         .onChange(of: vm.authorText + vm.quoteText, {
-            print("HERE I LIVE!")
+            debugPrint("Saving Author and Quote changes to CoreData")
             self.updatePrompt(author: vm.authorText, quote: vm.quoteText)
         })
     }

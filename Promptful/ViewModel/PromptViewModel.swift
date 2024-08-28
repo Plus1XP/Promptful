@@ -27,18 +27,6 @@ class PromptViewModel: ObservableObject {
         fetchEntries()
     }
     
-//    guard !self.searchText.isEmpty else { return prompts }
-//    return self.prompts.filter { $0.quote!.contains(self.searchText)}
-    
-//    func registerUndo(_ newValue: String, _ targetValue: Binding<String>, in undoManager: UndoManager?) {
-//        let oldValue = targetValue
-//        undoManager?.registerUndo(withTarget: self) { [weak undoManager] target in
-//          target.targetValue = oldValue // registers an undo operation to revert to old text
-//          target.registerUndo(oldValue, in: undoManager) // this makes redo possible
-//        }
-//        targetValue = newValue // update the actual value
-//      }
-    
     func registerAuthorUndo(_ newValue: String, in undoManager: UndoManager?) {
         let oldValue = authorText
         undoManager?.registerUndo(withTarget: self) { [weak undoManager] target in

@@ -15,22 +15,15 @@ struct TitleTextFieldView: View {
     var body: some View {
         TextField("Author...", text: $string, axis: .vertical)
             .font(.title.bold())
-//            .submitLabel(.next)
             .focused($contentEditorInFocus)
-//            .onChange(of: string, {
-//                guard let newValueLastChar = string.last else { return }
-//                if newValueLastChar == "\n" {
-//                    string.removeLast()
-//                    contentEditorInFocus = true
-//                }
-//            })
             .foregroundColor(.primary)
+            .padding(5)
             .background(
                 RoundedRectangle(
                     cornerRadius: 12,
                     style: .continuous
                 )
-                .fill(Color.setFieldBackgroundColor(colorScheme: colorScheme))
+                .fill(Color.background)
             )
             .border(contentEditorInFocus ? colorScheme == .light ? .white : Color(UIColor.secondarySystemBackground) : .clear)
             .cornerRadius(12)
