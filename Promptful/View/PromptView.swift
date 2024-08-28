@@ -104,11 +104,6 @@ struct PromptView: View {
     
     // MARK: Core Data Operations
     
-//    private func createNewNote() {
-//        selectedPrompt = nil
-//        selectedPrompt = vm.addNewEntry()
-//    }
-
     private func deleteNote(in header: Date, at offsets: IndexSet) {
         offsets.forEach { index in
             if let promptToDelete = groupedByDate[header]?[index] {
