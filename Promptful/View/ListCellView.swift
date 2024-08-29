@@ -9,6 +9,7 @@ import SwiftUI
 
 struct ListCellView: View {
     @Environment(\.colorScheme) private var colorScheme
+    @EnvironmentObject var vm: PromptViewModel
     var prompt: PromptEntity
     
     var body: some View {
@@ -33,7 +34,7 @@ struct ListCellView: View {
                         }
                     }
                 }
-                .padding(.bottom, 5)
+                .padding(.bottom, 10)
                 HStack() {
                     VStack(alignment: .leading, spacing: 5) {
                         Text(self.prompt.author ?? "Unkown Author")
@@ -48,7 +49,7 @@ struct ListCellView: View {
         .frame(maxHeight: .infinity)
         .padding([.top], 15)
         .padding([.leading, .trailing], 10)
-        .padding([.bottom], 10)
+        .padding([.bottom], 15)
         .background(
             Rectangle()
                 .fill(Color.setFieldBackgroundColor(colorScheme: self.colorScheme).opacity(1))
@@ -60,4 +61,5 @@ struct ListCellView: View {
 
 #Preview {
     ListCellView(prompt: PersistenceController.shared.samplePrompt)
+        .environmentObject(PromptViewModel())
 }

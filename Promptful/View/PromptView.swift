@@ -50,7 +50,7 @@ struct PromptView: View {
                                 }
                                 .buttonStyle(PlainButtonStyle()).accentColor(.clear).disabled(false)
                                 .listRowSeparator(.hidden)
-                                .listRowInsets(EdgeInsets(top: 0, leading: 0, bottom: 0, trailing: 0))
+                                .listRowInsets(EdgeInsets(top: 0.5, leading: 0, bottom: 0.5, trailing: 0))
                                 .swipeActions(edge: .leading, allowsFullSwipe: true) {
                                     Button() {
                                         withAnimation {
@@ -194,7 +194,7 @@ struct PromptView: View {
                 }
             }
             .navigationTitle("Quotes")
-//            .animation(.bouncy, value: self.animate)
+            .animation(.spring(), value: self.editMode)
             .environment(\.editMode, $editMode)
         }
     }
