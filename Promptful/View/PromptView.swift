@@ -88,11 +88,20 @@ struct PromptView: View {
                     )
                 }
             }
-            .id(UUID())
+//            .id(UUID())
+            .onAppear{
+                self.vm.fetchEntries()
+            }
             .refreshable {
                 self.vm.fetchEntries()
             }
-            .searchable(text: $searchText, prompt: "Search Quotes..")
+            .searchable(text: $searchText, prompt: "Search Quotes..") {
+                if self.searchText.count > 2 {
+                    ForEach(self.vm.prompts, id: \.self) { entry in
+                        Text(entry.author!).searchCompletion(entry.author!)
+                    }
+                }
+            }
             .onChange(of: searchText) {
                 self.vm.searchNotes(with: searchText)
             }
@@ -185,16 +194,8 @@ struct PromptView: View {
                 }
             }
             .navigationTitle("Quotes")
-//            .animation(.easeIn, value: self.editMode)
+//            .animation(.bouncy, value: self.animate)
             .environment(\.editMode, $editMode)
-//        } detail: {
-//            if let selectedPrompt {
-//                EditPromptsView(prompt: selectedPrompt)
-//                    .id(selectedPrompt)
-//            } else {
-//                Text("Select a Quote.")
-//            }
-            
         }
     }
 }

@@ -13,6 +13,7 @@ struct ContentView: View {
     @State private var editMode: EditMode = .inactive
     @State private var isNewQuotePopoverPresented: Bool = false
     @State private var activeTabSelection: Int = 0
+    
     var body: some View {
         TabView(selection: $activeTabSelection) {
             Group {

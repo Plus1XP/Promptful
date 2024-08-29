@@ -99,7 +99,7 @@ struct EditPromptsView: View {
         if self.prompt != nil {
             self.updatePrompt(author: self.vm.authorText, quote: self.vm.quoteText)
         } else {
-            createNewPrompt()
+            self.createNewPrompt()
             self.updatePrompt(author: self.vm.authorText, quote: self.vm.quoteText)
         }
     }
