@@ -22,7 +22,7 @@ struct ListCellView: View {
                         Spacer()
                     }
                     VStack(alignment: .leading, spacing: 5) {
-                        Text(prompt.quote ?? "No context available")
+                        Text(self.prompt.quote ?? "No context available")
                             .lineLimit(3)
                     }
                     Spacer()
@@ -33,9 +33,10 @@ struct ListCellView: View {
                         }
                     }
                 }
+                .padding(.bottom, 5)
                 HStack() {
                     VStack(alignment: .leading, spacing: 5) {
-                        Text(prompt.author ?? "Unkown Author")
+                        Text(self.prompt.author ?? "Unkown Author")
                             .lineLimit(1)
                             .font(.caption)
                             .fontWeight(.bold)
@@ -45,11 +46,12 @@ struct ListCellView: View {
             }
         }
         .frame(maxHeight: .infinity)
+        .padding([.top], 15)
         .padding([.leading, .trailing], 10)
-        .padding([.top, .bottom], 15)
+        .padding([.bottom], 10)
         .background(
             Rectangle()
-                .fill(Color.setFieldBackgroundColor(colorScheme: colorScheme).opacity(1))
+                .fill(Color.setFieldBackgroundColor(colorScheme: self.colorScheme).opacity(1))
                 .cornerRadius(10.0)
                 .padding([.top, .bottom], 3)
         )

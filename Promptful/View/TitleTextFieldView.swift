@@ -25,9 +25,9 @@ struct TitleTextFieldView: View {
                 )
                 .fill(Color.background)
             )
-            .border(contentEditorInFocus ? colorScheme == .light ? .white : Color(UIColor.secondarySystemBackground) : .clear)
+            .border(self.contentEditorInFocus ? self.colorScheme == .light ? .white : Color(UIColor.secondarySystemBackground) : .clear)
             .cornerRadius(12)
-            .shadow(color: contentEditorInFocus ? colorScheme == .light ? .gray.opacity(0.4) : .white.opacity(0.4) : .clear, radius: 2)
+            .shadow(color: self.contentEditorInFocus ? self.colorScheme == .light ? .gray.opacity(0.4) : .white.opacity(0.4) : .clear, radius: 2)
     }
 }
 

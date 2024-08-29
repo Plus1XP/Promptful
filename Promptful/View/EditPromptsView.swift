@@ -8,6 +8,7 @@
 import SwiftUI
 
 struct EditPromptsView: View {
+    @Environment(\.presentationMode) var presentaionMode
     @Environment(\.undoManager) var undoManager
     @EnvironmentObject var vm: PromptViewModel
     @State var prompt: PromptEntity?
@@ -19,23 +20,23 @@ struct EditPromptsView: View {
         VStack(alignment: .leading) {
             TitleTextFieldView(string: Binding<String>(
                 get: {
-                    vm.authorText // retrieve the value
+                    self.vm.authorText // retrieve the value
                 }, set: {
-                    vm.registerAuthorUndo($0, in: undoManager) // set the value
+                    self.vm.registerAuthorUndo($0, in: self.undoManager) // set the value
                 }))
             .submitLabel(.next)
-            .onChange(of: vm.authorText, {
-                guard let newValueLastChar = vm.authorText.last else { return }
+            .onChange(of: self.vm.authorText, {
+                guard let newValueLastChar = self.vm.authorText.last else { return }
                     if newValueLastChar == "\n" {
-                        vm.authorText.removeLast()
-                        contentEditorInFocus = true
+                        self.vm.authorText.removeLast()
+                        self.contentEditorInFocus = true
                     }
                 })
             TextEditorView(string: Binding<String>(
                 get: {
-                    vm.quoteText // retrieve the value
+                    self.vm.quoteText // retrieve the value
                 }, set: {
-                  vm.registerQuoteUndo($0, in: undoManager) // set the value
+                    self.vm.registerQuoteUndo($0, in: self.undoManager) // set the value
                 }))
                 .scrollDisabled(true)
                 .focused($contentEditorInFocus)
@@ -48,17 +49,17 @@ struct EditPromptsView: View {
             ToolbarItem(placement: .navigationBarTrailing) {
                 HStack {
                     Button {
-                        undoManager?.undo()
+                        self.undoManager?.undo()
                     } label: {
                         Image(systemName: "arrow.uturn.backward.circle")
                     }
-                    .disabled(undoManager?.canUndo == false)
+                    .disabled(self.undoManager?.canUndo == false)
                     Button {
-                        undoManager?.redo()
+                        self.undoManager?.redo()
                     } label: {
                         Image(systemName: "arrow.uturn.forward.circle")
                     }
-                    .disabled(undoManager?.canRedo == false)
+                    .disabled(self.undoManager?.canRedo == false)
                     Button {
                         
                     } label: {
@@ -67,8 +68,21 @@ struct EditPromptsView: View {
                 }
             }
         }
+        .toolbar {
+            ToolbarItem(placement: .keyboard) {
+                HStack {
+                    Spacer()
+                    Button("Done") {
+                        self.hideKeyboard()
+                        self.saveChanges()
+                        self.presentaionMode.wrappedValue.dismiss()
+                    }
+                    .buttonStyle(.borderedProminent)
+                }
+            }
+        }
         .onAppear {
-            if let prompt = prompt {
+            if let prompt = self.prompt {
                 self.vm.authorText = prompt.author ?? ""
                 self.vm.quoteText = prompt.quote ?? ""
             } else {
@@ -76,32 +90,34 @@ struct EditPromptsView: View {
                 self.vm.quoteText = ""
             }
         }
-        .onChange(of: vm.authorText + vm.quoteText, {
-            debugPrint("Saving Author and Quote changes to CoreData")
-            if let prompt = prompt {
-                self.updatePrompt(author: vm.authorText, quote: vm.quoteText)
-            } else {
-                createNewNote()
-                self.updatePrompt(author: vm.authorText, quote: vm.quoteText)
-            }
+        .onChange(of: self.vm.authorText + self.vm.quoteText, {
+            self.saveChanges()
         })
     }
     
-    // MARK: Core Data Operations
-    private func createNewNote() {
-        if (vm.authorText.isEmpty) && (vm.quoteText.isEmpty) {
+    private func saveChanges() {
+        if self.prompt != nil {
+            self.updatePrompt(author: self.vm.authorText, quote: self.vm.quoteText)
+        } else {
+            createNewPrompt()
+            self.updatePrompt(author: self.vm.authorText, quote: self.vm.quoteText)
+        }
+    }
+
+    private func createNewPrompt() {
+        if (self.vm.authorText.isEmpty) && (self.vm.quoteText.isEmpty) {
             return
         }
-        prompt = nil
-        prompt = vm.addNewEntry()
+        self.prompt = nil
+        self.prompt = self.vm.addNewEntry()
     }
     
-    func updatePrompt(author: String, quote: String) {
+    private func updatePrompt(author: String, quote: String) {
         if (author.isEmpty) && (quote.isEmpty) {
             return
         }
-        guard let prompt = prompt else { return }
-        vm.updateEntry(prompt, author: author, quote: quote)
+        guard let prompt = self.prompt else { return }
+        self.vm.updateEntry(prompt, author: author, quote: quote)
     }
 }
 

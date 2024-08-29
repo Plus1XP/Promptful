@@ -50,6 +50,7 @@ struct PromptView: View {
 //                                }
                                 .buttonStyle(PlainButtonStyle()).accentColor(.clear).disabled(false)
                                 .listRowSeparator(.hidden)
+                                .listRowInsets(EdgeInsets(top: 0, leading: 0, bottom: 0, trailing: 0))
                                 .swipeActions(edge: .trailing, allowsFullSwipe: true) {
                                     Button(role: .destructive) {
                                         withAnimation {

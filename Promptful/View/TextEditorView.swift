@@ -15,7 +15,7 @@ struct TextEditorView: View {
 
     var body: some View {
         ZStack(alignment: .topLeading) {
-            Text(string)
+            Text(self.string)
                 .foregroundColor(.clear)
                 .padding(10)
                 .background(GeometryReader {
@@ -25,7 +25,7 @@ struct TextEditorView: View {
             TextEditor(text: $string)
                 .focused($contentEditorInFocus)
                 .border(.clear)
-            if string.isEmpty {
+            if self.string.isEmpty {
                 Text("Quote...")
                     .font(.title3)
                     .foregroundColor(.gray)
@@ -34,18 +34,18 @@ struct TextEditorView: View {
                     .padding([.top, .leading], 4)
             }
         }
-        .onPreferenceChange(ViewHeightKey.self) { textEditorHeight = $0 }
+        .onPreferenceChange(ViewHeightKey.self) { self.textEditorHeight = $0 }
         .foregroundColor(.primary)
         .background(
             RoundedRectangle(
                 cornerRadius: 12,
                 style: .continuous
             )
-            .fill(Color.setFieldBackgroundColor(colorScheme: colorScheme))
+            .fill(Color.setFieldBackgroundColor(colorScheme: self.colorScheme))
         )
-        .border(contentEditorInFocus ? colorScheme == .light ? .white : Color(UIColor.secondarySystemBackground) : .clear)
+        .border(self.contentEditorInFocus ? self.colorScheme == .light ? .white : Color(UIColor.secondarySystemBackground) : .clear)
         .cornerRadius(12)
-        .shadow(color: contentEditorInFocus ? colorScheme == .light ? .gray.opacity(0.4) : .white.opacity(0.4) : .clear, radius: 2)
+        .shadow(color: self.contentEditorInFocus ? self.colorScheme == .light ? .gray.opacity(0.4) : .white.opacity(0.4) : .clear, radius: 2)
     }
 }
 
