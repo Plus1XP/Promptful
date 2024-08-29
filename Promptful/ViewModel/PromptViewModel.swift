@@ -93,6 +93,29 @@ class PromptViewModel: ObservableObject {
         self.fetchEntries()
     }
     
+    func deleteNote(in header: Date, at offsets: IndexSet, groupedByDate: [Date: [PromptEntity]], selectedPrompt: PromptEntity?) {
+        offsets.forEach { index in
+            if let promptToDelete = groupedByDate[header]?[index] {
+                
+                if promptToDelete == selectedPrompt {
+//                    selectedPrompt = nil
+                }
+                
+                deleteEntry(promptToDelete)
+            }
+        }
+    }
+    
+    func deleteSelectedEntries() {
+        for entry in self.promptSelection {
+            PersistenceController.shared.container.viewContext.delete(entry)
+        }
+        self.promptSelection.removeAll()
+        self.sortEntries()
+        self.saveChanges()
+        self.fetchEntries()
+    }
+    
     func moveEntry(from oldIndex: IndexSet, to newIndex: Int) {
         // This guarantees that the edits are performed in the same thread as the CoreData context
         PersistenceController.shared.container.viewContext.perform {

@@ -8,11 +8,15 @@
 import SwiftUI
 
 struct PromptView: View {
+    @Environment(\.colorScheme) private var colorScheme
     @EnvironmentObject var vm: PromptViewModel
+    @State private var editMode: EditMode = .inactive
     @State var showConfirmationDialogue: Bool = false
-    @State var showOverlay: Bool = false
+//    @State var confirmDeletion: Bool = false
+//    @State var animate: Bool = false
+//    @State var showOverlay: Bool = false
     @State private var searchText = ""
-    @State private var selectedPrompt: PromptEntity?
+//    @State private var selectedPrompt: PromptEntity?
     var groupedByDate: [Date: [PromptEntity]] {
         let calendar = Calendar.current
         return Dictionary(grouping: vm.prompts) { promptEntity in
@@ -25,37 +29,43 @@ struct PromptView: View {
     }
     
     var body: some View {
-        NavigationSplitView {
-            // sidebar
-            List(selection: $selectedPrompt) {
+        NavigationView {
+            List(selection: $vm.promptSelection) {
                 if self.vm.prompts.isEmpty {
                     ContentUnavailableView("What inspires you?...", systemImage: "quote.bubble")
                 } else {
                     ForEach(headers, id: \.self) { header in
                         Section(header: Text(header, style: .date)) {
-                            ForEach(groupedByDate[header]!) { prompt in
+                            ForEach(groupedByDate[header]!, id: \.self) { prompt in
                                 // This Hack removes the Details Disclosure chevron from list view.
                                 ZStack {
                                     HStack(alignment: .top) {
                                         ListCellView(prompt: prompt)
+                                            .padding([.leading/*, .trailing*/], self.editMode.isEditing ? 10 : 0)
                                     }
-                                    NavigationLink(destination: EditPromptsView(prompt: prompt)
-                                        .id(prompt)) {
-                                        EmptyView()
-                                    }
-                                    .opacity(0)
+                                    NavigationLink(destination: EditPromptsView(prompt: prompt)) {
+                                            EmptyView()
+                                        }
+                                        .opacity(0)
                                 }
-//                                NavigationLink(value: prompt) {
-//                                    ListCellView(prompt: prompt)
-//                                }
                                 .buttonStyle(PlainButtonStyle()).accentColor(.clear).disabled(false)
                                 .listRowSeparator(.hidden)
                                 .listRowInsets(EdgeInsets(top: 0, leading: 0, bottom: 0, trailing: 0))
+                                .swipeActions(edge: .leading, allowsFullSwipe: true) {
+                                    Button() {
+                                        withAnimation {
+                                            // Pin
+                                        }
+                                    } label: {
+                                        Label("", systemImage: "pin")
+                                            .foregroundStyle(.orange, .orange)
+                                    }
+                                    .tint(.clear)
+                                }
                                 .swipeActions(edge: .trailing, allowsFullSwipe: true) {
                                     Button(role: .destructive) {
                                         withAnimation {
                                             vm.deleteEntry(prompt)
-                                            
                                         }
                                     } label: {
                                         Label("", systemImage: "trash")
@@ -64,6 +74,9 @@ struct PromptView: View {
                                     .tint(.clear)
                                 }
                             }
+//                            .onMove(perform: { indices, newOffset in
+//                                 self.vm.moveEntry(from: indices, to: newOffset)
+//                            })
 //                            .onDelete(perform: { indexSet in
 //                                deleteNote(in: header, at: indexSet)
 //                            })
@@ -76,47 +89,126 @@ struct PromptView: View {
                 }
             }
             .id(UUID())
-            .navigationTitle("Quotes")
+            .refreshable {
+                self.vm.fetchEntries()
+            }
             .searchable(text: $searchText, prompt: "Search Quotes..")
             .onChange(of: searchText) {
-                // MARK: Core Data Operations
-                vm.searchNotes(with: searchText)
+                self.vm.searchNotes(with: searchText)
+            }
+            .onChange(of: self.editMode, {
+                //            self.noteStore.isPinnedNotesFiltered = false
+            })
+            .onDisappear(perform: {
+                self.editMode = .inactive
+                self.vm.promptSelection.removeAll()
+            })
+            .alert("Confirm Deletion", isPresented: $showConfirmationDialogue) {
+                Button("Cancel", role: .cancel) {
+                    self.vm.promptSelection.removeAll()
+                    self.editMode = .inactive
+                    self.showConfirmationDialogue = false
+                }
+                Button("Delete", role: .destructive) {
+                    let feedbackGenerator: UINotificationFeedbackGenerator? = UINotificationFeedbackGenerator()
+                    feedbackGenerator?.notificationOccurred(.success)
+                    self.vm.deleteSelectedEntries()
+                    self.editMode = .inactive
+                    self.showConfirmationDialogue = false
+                }
+            } message: {
+                Text(deletionAlertText(selection: self.vm.promptSelection.count))
             }
             .toolbar {
-                ToolbarItem(placement: .navigationBarTrailing) {
-                    Button {
-                        // Create pin filter
-                    } label: {
-                        Image(systemName: "line.3.horizontal.decrease.circle")
+                ToolbarItem(placement: .navigationBarLeading) {
+                    if self.editMode == .active {
+                        HStack {
+                            Button(action: {
+                                if self.vm.promptSelection.isEmpty {
+                                    for prompt in self.vm.prompts {
+                                        self.vm.promptSelection.insert(prompt)
+                                    }
+                                } else {
+                                    self.vm.promptSelection.removeAll()
+                                }
+                            }) {
+                                Image(systemName: self.vm.promptSelection.isEmpty ? "checklist.unchecked" : "checklist.checked")
+                                    .symbolEffect(.bounce, value: self.vm.promptSelection.isEmpty)
+                                    .contentTransition(.symbolEffect(.replace))
+                            }
+                            .foregroundStyle(.blue, setFontColor(colorScheme: self.colorScheme))
+                            .sensoryFeedback(.selection, trigger: self.vm.promptSelection.isEmpty)
+                            .disabled(self.editMode == .inactive ? true : false)
+                            
+                            Button(action: {
+                                self.showConfirmationDialogue = true
+                            }) {
+                                Label("Trash", systemImage: self.showConfirmationDialogue ? "trash.fill" : "trash")
+                                    .symbolEffect(.pulse.wholeSymbol, options: .repeating, value: self.showConfirmationDialogue)
+                                    .contentTransition(.symbolEffect(.replace))
+                            }
+                            .foregroundStyle(self.vm.promptSelection.isEmpty ? .gray : .red, .blue)
+                            .sensoryFeedback(.warning, trigger: self.showConfirmationDialogue)
+                            .disabled(self.vm.promptSelection.isEmpty)
+                        }
                     }
                 }
             }
-        } detail: {
-            // item details
-            if let selectedPrompt {
-                EditPromptsView(prompt: selectedPrompt)
-                    .id(selectedPrompt)
-            } else {
-                Text("Select a Quote.")
+            .toolbar {
+                ToolbarItem(placement: .navigationBarTrailing) {
+                    HStack {
+                        Button {
+                            if self.editMode == .inactive {
+                                self.editMode = .active
+                            }
+                            else if self.editMode == .active {                            self.vm.promptSelection.removeAll()
+                                self.editMode = .inactive
+                            }
+                        } label: {
+                            if self.editMode.isEditing {
+                                Image(systemName: "checkmark.circle.fill")
+                                    .foregroundStyle(.white, .blue)
+                            } else {
+                                Image(systemName: "checkmark.circle")
+                                    .foregroundStyle(.gray, .blue)
+                            }
+                        }
+                        .scaleEffect(self.editMode.isEditing ? 1.5 : 1)
+                        .animation(.bouncy, value: self.editMode.isEditing)
+                        
+                        Button {
+                            // Create pin filter
+                        } label: {
+                            Image(systemName: "line.3.horizontal.decrease.circle")
+                        }
+                    }
+                }
             }
+            .navigationTitle("Quotes")
+//            .animation(.easeIn, value: self.editMode)
+            .environment(\.editMode, $editMode)
+//        } detail: {
+//            if let selectedPrompt {
+//                EditPromptsView(prompt: selectedPrompt)
+//                    .id(selectedPrompt)
+//            } else {
+//                Text("Select a Quote.")
+//            }
             
         }
     }
-    
-    // MARK: Core Data Operations
-    
-    private func deleteNote(in header: Date, at offsets: IndexSet) {
-        offsets.forEach { index in
-            if let promptToDelete = groupedByDate[header]?[index] {
-                
-                if promptToDelete == selectedPrompt {
-                    selectedPrompt = nil
-                }
-                
-                vm.deleteEntry(promptToDelete)
-            }
-        }
+}
+
+private func deletionAlertText(selection: Int) -> String {
+    if selection == 1 {
+        return "Are you sure you want to delete \(selection) Entry?"
+    } else {
+        return "Are you sure you want to delete \(selection) Entries?"
     }
+}
+
+private func setFontColor(colorScheme: ColorScheme) -> Color {
+    return colorScheme == .light ? .black : .white
 }
 
 #Preview {

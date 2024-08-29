@@ -26,7 +26,7 @@ struct TextEditorView: View {
                 .focused($contentEditorInFocus)
                 .border(.clear)
             if self.string.isEmpty {
-                Text("Quote...")
+                Text("What did they say?...")
                     .font(.title3)
                     .foregroundColor(.gray)
                     .disabled(true)

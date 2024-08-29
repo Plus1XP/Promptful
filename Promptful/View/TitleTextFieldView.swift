@@ -13,7 +13,7 @@ struct TitleTextFieldView: View {
     @FocusState private var contentEditorInFocus: Bool
 
     var body: some View {
-        TextField("Author...", text: $string, axis: .vertical)
+        TextField("Who is the author?...", text: $string, axis: .vertical)
             .font(.title.bold())
             .focused($contentEditorInFocus)
             .foregroundColor(.primary)
