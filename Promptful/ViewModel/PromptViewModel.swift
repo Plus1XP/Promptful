@@ -12,8 +12,6 @@ import SwiftUI
 class PromptViewModel: ObservableObject {
     @Published var prompts: [PromptEntity] = []
     @Published var promptSelection: Set<PromptEntity> = []
-    @Published var authorText: String = ""
-    @Published var quoteText: String = ""
 //    @Published var searchText: String = ""
     @Published var isDataLoaded = false
     var promptPositionState: [UUID:Int64] = [:]
@@ -27,23 +25,25 @@ class PromptViewModel: ObservableObject {
         fetchEntries()
     }
     
-    func registerAuthorUndo(_ newValue: String, in undoManager: UndoManager?) {
-        let oldValue = authorText
+    func registerAuthorUndo(index: Int, newValue: String, in undoManager: UndoManager?) -> String {
+        let oldValue = prompts[index].author
         undoManager?.registerUndo(withTarget: self) { [weak undoManager] target in
-          target.authorText = oldValue // registers an undo operation to revert to old text
-          target.registerAuthorUndo(oldValue, in: undoManager) // this makes redo possible
+            target.self.prompts[index].author = oldValue // registers an undo operation to revert to old text
+            target.registerAuthorUndo(index: index, newValue: oldValue ?? "Undo Error", in: undoManager) // this makes redo possible
         }
-        authorText = newValue // update the actual value
-      }
+        self.prompts[index].author = newValue // update the actual value
+        return newValue
+    }
     
-    func registerQuoteUndo(_ newValue: String, in undoManager: UndoManager?) {
-        let oldValue = quoteText
+    func registerQuoteUndo(index: Int, newValue: String, in undoManager: UndoManager?) -> String {
+        let oldValue = prompts[index].quote
         undoManager?.registerUndo(withTarget: self) { [weak undoManager] target in
-          target.quoteText = oldValue // registers an undo operation to revert to old text
-          target.registerQuoteUndo(oldValue, in: undoManager) // this makes redo possible
+            target.self.prompts[index].quote = oldValue // registers an undo operation to revert to old text
+            target.registerQuoteUndo(index: index, newValue: oldValue ?? "Redo Error", in: undoManager) // this makes redo possible
         }
-        quoteText = newValue // update the actual value
-      }
+        self.prompts[index].quote = newValue // update the actual value
+        return newValue
+    }
     
     func searchNotes(with searchText: String) {
         fetchEntries(with: searchText)

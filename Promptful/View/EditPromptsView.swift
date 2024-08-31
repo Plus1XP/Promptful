@@ -12,34 +12,44 @@ struct EditPromptsView: View {
     @Environment(\.undoManager) var undoManager
     @EnvironmentObject var vm: PromptViewModel
     @State var prompt: PromptEntity?
-//    @State private var author: String = ""
-//    @State private var quote: String = ""
-    @FocusState private var contentEditorInFocus: Bool
+    @State private var author: String = ""
+    @State private var quote: String = ""
+    @FocusState private var isFocus: PromptField?
     
     var body: some View {
         VStack(alignment: .leading) {
             TitleTextFieldView(string: Binding<String>(
                 get: {
-                    self.vm.authorText // retrieve the value
+                    self.author
                 }, set: {
-                    self.vm.registerAuthorUndo($0, in: self.undoManager) // set the value
+                    if let index = self.vm.prompts.firstIndex(where: {$0 === self.prompt}) {
+                        self.author = vm.registerAuthorUndo(index: index, newValue: $0, in: self.undoManager)
+                    } else {
+                        self.author = $0
+                    }
                 }))
             .submitLabel(.next)
-            .onChange(of: self.vm.authorText, {
-                guard let newValueLastChar = self.vm.authorText.last else { return }
+            .focused($isFocus, equals: .author)
+            .onChange(of: self.author, {
+                guard let newValueLastChar = self.author.last else { return }
                     if newValueLastChar == "\n" {
-                        self.vm.authorText.removeLast()
-                        self.contentEditorInFocus = true
+                        self.author.removeLast()
+                        self.isFocus = .quote
                     }
                 })
+            
             TextEditorView(string: Binding<String>(
                 get: {
-                    self.vm.quoteText // retrieve the value
+                    self.quote
                 }, set: {
-                    self.vm.registerQuoteUndo($0, in: self.undoManager) // set the value
+                    if let index = self.vm.prompts.firstIndex(where: {$0 === self.prompt}) {
+                        self.quote = vm.registerQuoteUndo(index: index, newValue: $0, in: self.undoManager)
+                    } else {
+                        self.quote = $0
+                    }
                 }))
                 .scrollDisabled(true)
-                .focused($contentEditorInFocus)
+                .focused($isFocus, equals: .quote)
                 .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .topLeading)
         }
         .padding(10)
@@ -49,13 +59,21 @@ struct EditPromptsView: View {
             ToolbarItem(placement: .navigationBarTrailing) {
                 HStack {
                     Button {
-                        self.undoManager?.undo()
+                        if let prompt = self.prompt {
+                            self.undoManager?.undo()
+                            self.author = prompt.author ?? ""
+                            self.quote = prompt.quote  ?? ""
+                        }
                     } label: {
                         Image(systemName: "arrow.uturn.backward.circle")
                     }
                     .disabled(self.undoManager?.canUndo == false)
                     Button {
-                        self.undoManager?.redo()
+                        if let prompt = self.prompt {
+                            self.undoManager?.redo()
+                            self.author = prompt.author  ?? ""
+                            self.quote = prompt.quote  ?? ""
+                        }
                     } label: {
                         Image(systemName: "arrow.uturn.forward.circle")
                     }
@@ -82,30 +100,34 @@ struct EditPromptsView: View {
             }
         }
         .onAppear {
+//            self.vm.undoManager = undoManager
             if let prompt = self.prompt {
-                self.vm.authorText = prompt.author ?? ""
-                self.vm.quoteText = prompt.quote ?? ""
+                self.author = prompt.author ?? ""
+                self.quote = prompt.quote ?? ""
             } else {
-                self.vm.authorText = ""
-                self.vm.quoteText = ""
+                self.author = ""
+                self.quote = ""
             }
         }
-        .onChange(of: self.vm.authorText + self.vm.quoteText, {
+        .onChange(of: self.author + self.quote, {
             self.saveChanges()
         })
+        .onDisappear{
+            // delete empty quote
+        }
     }
     
     private func saveChanges() {
         if self.prompt != nil {
-            self.updatePrompt(author: self.vm.authorText, quote: self.vm.quoteText)
+            self.updatePrompt(author: self.author, quote: self.quote)
         } else {
-            self.createNewPrompt()
-            self.updatePrompt(author: self.vm.authorText, quote: self.vm.quoteText)
+            self.createNewPrompt(author: self.author, quote: self.quote)
+            self.updatePrompt(author: self.author, quote: self.quote)
         }
     }
 
-    private func createNewPrompt() {
-        if (self.vm.authorText.isEmpty) && (self.vm.quoteText.isEmpty) {
+    private func createNewPrompt(author: String, quote: String) {
+        if (author.isEmpty) && (quote.isEmpty) {
             return
         }
         self.prompt = nil
