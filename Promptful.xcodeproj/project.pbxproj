@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		2F5B279D2C834F8D004D09BA /* focusField.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2F5B279C2C834F8D004D09BA /* focusField.swift */; };
 		2F6512342C7E395000D6F9C9 /* PromptfulApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2F6512332C7E395000D6F9C9 /* PromptfulApp.swift */; };
 		2F6512362C7E395000D6F9C9 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2F6512352C7E395000D6F9C9 /* ContentView.swift */; };
 		2F6512382C7E395100D6F9C9 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 2F6512372C7E395100D6F9C9 /* Assets.xcassets */; };
@@ -25,6 +26,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		2F5B279C2C834F8D004D09BA /* focusField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = focusField.swift; sourceTree = "<group>"; };
 		2F6512302C7E395000D6F9C9 /* Promptful.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Promptful.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		2F6512332C7E395000D6F9C9 /* PromptfulApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PromptfulApp.swift; sourceTree = "<group>"; };
 		2F6512352C7E395000D6F9C9 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
@@ -99,6 +101,7 @@
 			children = (
 				2FCAE0872C7E434A00AE151D /* Promptful.xcdatamodeld */,
 				2F65123C2C7E395100D6F9C9 /* Persistence.swift */,
+				2F5B279C2C834F8D004D09BA /* focusField.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -212,6 +215,7 @@
 				2F6E801F2C7E899D0033A839 /* Color.swift in Sources */,
 				2F6512342C7E395000D6F9C9 /* PromptfulApp.swift in Sources */,
 				2FCAE0892C7E434A00AE151D /* Promptful.xcdatamodeld in Sources */,
+				2F5B279D2C834F8D004D09BA /* focusField.swift in Sources */,
 				2F6E80212C7F72FA0033A839 /* TitleTextFieldView.swift in Sources */,
 				2FCAE0942C7E576C00AE151D /* EditPromptsView.swift in Sources */,
 				2FCAE0962C7E58C700AE151D /* PromptView.swift in Sources */,
