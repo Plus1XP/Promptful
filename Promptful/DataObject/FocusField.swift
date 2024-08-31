@@ -1,5 +1,5 @@
 //
-//  focusField.swift
+//  FocusField.swift
 //  Promptful
 //
 //  Created by nabbit on 31/08/2024.

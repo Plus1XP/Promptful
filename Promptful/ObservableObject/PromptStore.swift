@@ -9,7 +9,7 @@
 import CoreData
 import SwiftUI
 
-class PromptViewModel: ObservableObject {
+class PromptStore: ObservableObject {
     @Published var prompts: [PromptEntity] = []
     @Published var promptSelection: Set<PromptEntity> = []
 //    @Published var searchText: String = ""
@@ -23,26 +23,6 @@ class PromptViewModel: ObservableObject {
     
     init() {
         fetchEntries()
-    }
-    
-    func registerAuthorUndo(index: Int, newValue: String, in undoManager: UndoManager?) -> String {
-        let oldValue = prompts[index].author
-        undoManager?.registerUndo(withTarget: self) { [weak undoManager] target in
-            target.self.prompts[index].author = oldValue // registers an undo operation to revert to old text
-            target.registerAuthorUndo(index: index, newValue: oldValue ?? "Undo Error", in: undoManager) // this makes redo possible
-        }
-        self.prompts[index].author = newValue // update the actual value
-        return newValue
-    }
-    
-    func registerQuoteUndo(index: Int, newValue: String, in undoManager: UndoManager?) -> String {
-        let oldValue = prompts[index].quote
-        undoManager?.registerUndo(withTarget: self) { [weak undoManager] target in
-            target.self.prompts[index].quote = oldValue // registers an undo operation to revert to old text
-            target.registerQuoteUndo(index: index, newValue: oldValue ?? "Redo Error", in: undoManager) // this makes redo possible
-        }
-        self.prompts[index].quote = newValue // update the actual value
-        return newValue
     }
     
     func searchNotes(with searchText: String) {
@@ -67,6 +47,26 @@ class PromptViewModel: ObservableObject {
         }
     }
     
+    func registerAuthorUndo(index: Int, newValue: String, in undoManager: UndoManager?) -> String {
+        let oldValue = prompts[index].author
+        undoManager?.registerUndo(withTarget: self) { [weak undoManager] target in
+            target.self.prompts[index].author = oldValue // registers an undo operation to revert to old text
+            target.registerAuthorUndo(index: index, newValue: oldValue ?? "Undo Error", in: undoManager) // this makes redo possible
+        }
+        self.prompts[index].author = newValue // update the actual value
+        return newValue
+    }
+    
+    func registerQuoteUndo(index: Int, newValue: String, in undoManager: UndoManager?) -> String {
+        let oldValue = prompts[index].quote
+        undoManager?.registerUndo(withTarget: self) { [weak undoManager] target in
+            target.self.prompts[index].quote = oldValue // registers an undo operation to revert to old text
+            target.registerQuoteUndo(index: index, newValue: oldValue ?? "Redo Error", in: undoManager) // this makes redo possible
+        }
+        self.prompts[index].quote = newValue // update the actual value
+        return newValue
+    }
+    
     func addNewEntry() -> PromptEntity {
         let newPrompt = PromptEntity(context: PersistenceController.shared.container.viewContext)
         newPrompt.id = UUID()
@@ -74,7 +74,6 @@ class PromptViewModel: ObservableObject {
         newPrompt.position = Int64(prompts.count == 0 ? 0 : prompts.count + 1)
         self.saveChanges()
         self.fetchEntries()
-        
         return newPrompt
     }
     

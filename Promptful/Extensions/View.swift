@@ -12,4 +12,8 @@ extension View {
     func hideKeyboard() {
         UIApplication.shared.sendAction(#selector(UIResponder.resignFirstResponder), to: nil, from: nil, for: nil)
     }
+    
+    func displayConfetti(isActive: Binding<Bool>) -> some View {
+        self.modifier(DisplayConfettiModifier(isActive: isActive))
+    }
 }

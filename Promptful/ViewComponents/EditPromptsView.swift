@@ -10,7 +10,7 @@ import SwiftUI
 struct EditPromptsView: View {
     @Environment(\.presentationMode) var presentaionMode
     @Environment(\.undoManager) var undoManager
-    @EnvironmentObject var vm: PromptViewModel
+    @EnvironmentObject var promptStore: PromptStore
     @State var prompt: PromptEntity?
     @State private var author: String = ""
     @State private var quote: String = ""
@@ -22,8 +22,8 @@ struct EditPromptsView: View {
                 get: {
                     self.author
                 }, set: {
-                    if let index = self.vm.prompts.firstIndex(where: {$0 === self.prompt}) {
-                        self.author = vm.registerAuthorUndo(index: index, newValue: $0, in: self.undoManager)
+                    if let index = self.promptStore.prompts.firstIndex(where: {$0 === self.prompt}) {
+                        self.author = promptStore.registerAuthorUndo(index: index, newValue: $0, in: self.undoManager)
                     } else {
                         self.author = $0
                     }
@@ -42,8 +42,8 @@ struct EditPromptsView: View {
                 get: {
                     self.quote
                 }, set: {
-                    if let index = self.vm.prompts.firstIndex(where: {$0 === self.prompt}) {
-                        self.quote = vm.registerQuoteUndo(index: index, newValue: $0, in: self.undoManager)
+                    if let index = self.promptStore.prompts.firstIndex(where: {$0 === self.prompt}) {
+                        self.quote = promptStore.registerQuoteUndo(index: index, newValue: $0, in: self.undoManager)
                     } else {
                         self.quote = $0
                     }
@@ -131,7 +131,7 @@ struct EditPromptsView: View {
             return
         }
         self.prompt = nil
-        self.prompt = self.vm.addNewEntry()
+        self.prompt = self.promptStore.addNewEntry()
     }
     
     private func updatePrompt(author: String, quote: String) {
@@ -139,11 +139,11 @@ struct EditPromptsView: View {
             return
         }
         guard let prompt = self.prompt else { return }
-        self.vm.updateEntry(prompt, author: author, quote: quote)
+        self.promptStore.updateEntry(prompt, author: author, quote: quote)
     }
 }
 
 #Preview {
     EditPromptsView()
-        .environmentObject(PromptViewModel())
+        .environmentObject(PromptStore())
 }

@@ -7,7 +7,14 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		2F5B279D2C834F8D004D09BA /* focusField.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2F5B279C2C834F8D004D09BA /* focusField.swift */; };
+		2F5B279D2C834F8D004D09BA /* FocusField.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2F5B279C2C834F8D004D09BA /* FocusField.swift */; };
+		2F5B279F2C836E03004D09BA /* SettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2F5B279E2C836E03004D09BA /* SettingsView.swift */; };
+		2F5B27A22C836E63004D09BA /* ButtonStyles.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2F5B27A12C836E63004D09BA /* ButtonStyles.swift */; };
+		2F5B27A42C836E75004D09BA /* Confetti.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2F5B27A32C836E75004D09BA /* Confetti.swift */; };
+		2F5B27A62C836EC6004D09BA /* HelperFunctions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2F5B27A52C836EC6004D09BA /* HelperFunctions.swift */; };
+		2F5B27AA2C8370A6004D09BA /* BiometricService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2F5B27A92C8370A6004D09BA /* BiometricService.swift */; };
+		2F5B27AC2C837110004D09BA /* BiometricStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2F5B27AB2C837110004D09BA /* BiometricStore.swift */; };
+		2F5B27AE2C837149004D09BA /* SyncMonitor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2F5B27AD2C837149004D09BA /* SyncMonitor.swift */; };
 		2F6512342C7E395000D6F9C9 /* PromptfulApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2F6512332C7E395000D6F9C9 /* PromptfulApp.swift */; };
 		2F6512362C7E395000D6F9C9 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2F6512352C7E395000D6F9C9 /* ContentView.swift */; };
 		2F6512382C7E395100D6F9C9 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 2F6512372C7E395100D6F9C9 /* Assets.xcassets */; };
@@ -16,17 +23,27 @@
 		2F6E801F2C7E899D0033A839 /* Color.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2F6E801E2C7E899D0033A839 /* Color.swift */; };
 		2F6E80212C7F72FA0033A839 /* TitleTextFieldView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2F6E80202C7F72FA0033A839 /* TitleTextFieldView.swift */; };
 		2FCAE0892C7E434A00AE151D /* Promptful.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 2FCAE0872C7E434A00AE151D /* Promptful.xcdatamodeld */; };
-		2FCAE08B2C7E461900AE151D /* PromptViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2FCAE08A2C7E461900AE151D /* PromptViewModel.swift */; };
+		2FCAE08B2C7E461900AE151D /* PromptStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2FCAE08A2C7E461900AE151D /* PromptStore.swift */; };
 		2FCAE08E2C7E4F9700AE151D /* TextEditorView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2FCAE08D2C7E4F9700AE151D /* TextEditorView.swift */; };
 		2FCAE0902C7E54FC00AE151D /* ListCellView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2FCAE08F2C7E54FC00AE151D /* ListCellView.swift */; };
 		2FCAE0922C7E56D200AE151D /* PersistenceController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2FCAE0912C7E56D200AE151D /* PersistenceController.swift */; };
 		2FCAE0942C7E576C00AE151D /* EditPromptsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2FCAE0932C7E576C00AE151D /* EditPromptsView.swift */; };
 		2FCAE0962C7E58C700AE151D /* PromptView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2FCAE0952C7E58C700AE151D /* PromptView.swift */; };
 		2FCAE0982C7E5AF300AE151D /* View.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2FCAE0972C7E5AF300AE151D /* View.swift */; };
+		2FD6FB232C837BF900AFDD82 /* AuthenticationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2FD6FB222C837BF900AFDD82 /* AuthenticationView.swift */; };
+		2FD6FB252C837C0100AFDD82 /* LoginView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2FD6FB242C837C0100AFDD82 /* LoginView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
-		2F5B279C2C834F8D004D09BA /* focusField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = focusField.swift; sourceTree = "<group>"; };
+		2F5B279C2C834F8D004D09BA /* FocusField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FocusField.swift; sourceTree = "<group>"; };
+		2F5B279E2C836E03004D09BA /* SettingsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsView.swift; sourceTree = "<group>"; };
+		2F5B27A12C836E63004D09BA /* ButtonStyles.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ButtonStyles.swift; sourceTree = "<group>"; };
+		2F5B27A32C836E75004D09BA /* Confetti.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Confetti.swift; sourceTree = "<group>"; };
+		2F5B27A52C836EC6004D09BA /* HelperFunctions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HelperFunctions.swift; sourceTree = "<group>"; };
+		2F5B27A92C8370A6004D09BA /* BiometricService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BiometricService.swift; sourceTree = "<group>"; };
+		2F5B27AB2C837110004D09BA /* BiometricStore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BiometricStore.swift; sourceTree = "<group>"; };
+		2F5B27AD2C837149004D09BA /* SyncMonitor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SyncMonitor.swift; sourceTree = "<group>"; };
+		2F5B27B02C83751E004D09BA /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
 		2F6512302C7E395000D6F9C9 /* Promptful.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Promptful.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		2F6512332C7E395000D6F9C9 /* PromptfulApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PromptfulApp.swift; sourceTree = "<group>"; };
 		2F6512352C7E395000D6F9C9 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
@@ -36,7 +53,7 @@
 		2F6E801E2C7E899D0033A839 /* Color.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Color.swift; sourceTree = "<group>"; };
 		2F6E80202C7F72FA0033A839 /* TitleTextFieldView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TitleTextFieldView.swift; sourceTree = "<group>"; };
 		2FCAE0882C7E434A00AE151D /* Promptful.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = Promptful.xcdatamodel; sourceTree = "<group>"; };
-		2FCAE08A2C7E461900AE151D /* PromptViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PromptViewModel.swift; sourceTree = "<group>"; };
+		2FCAE08A2C7E461900AE151D /* PromptStore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PromptStore.swift; sourceTree = "<group>"; };
 		2FCAE08C2C7E494800AE151D /* Promptful.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = Promptful.entitlements; sourceTree = "<group>"; };
 		2FCAE08D2C7E4F9700AE151D /* TextEditorView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextEditorView.swift; sourceTree = "<group>"; };
 		2FCAE08F2C7E54FC00AE151D /* ListCellView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListCellView.swift; sourceTree = "<group>"; };
@@ -44,6 +61,8 @@
 		2FCAE0932C7E576C00AE151D /* EditPromptsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditPromptsView.swift; sourceTree = "<group>"; };
 		2FCAE0952C7E58C700AE151D /* PromptView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PromptView.swift; sourceTree = "<group>"; };
 		2FCAE0972C7E5AF300AE151D /* View.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = View.swift; sourceTree = "<group>"; };
+		2FD6FB222C837BF900AFDD82 /* AuthenticationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthenticationView.swift; sourceTree = "<group>"; };
+		2FD6FB242C837C0100AFDD82 /* LoginView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -57,6 +76,27 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		2F5B27A02C836E27004D09BA /* Utilities */ = {
+			isa = PBXGroup;
+			children = (
+				2F5B27A12C836E63004D09BA /* ButtonStyles.swift */,
+				2F5B27A32C836E75004D09BA /* Confetti.swift */,
+				2F5B27A52C836EC6004D09BA /* HelperFunctions.swift */,
+			);
+			path = Utilities;
+			sourceTree = "<group>";
+		};
+		2F5B27AF2C8371F0004D09BA /* ViewComponents */ = {
+			isa = PBXGroup;
+			children = (
+				2FCAE08F2C7E54FC00AE151D /* ListCellView.swift */,
+				2FCAE0932C7E576C00AE151D /* EditPromptsView.swift */,
+				2F6E80202C7F72FA0033A839 /* TitleTextFieldView.swift */,
+				2FCAE08D2C7E4F9700AE151D /* TextEditorView.swift */,
+			);
+			path = ViewComponents;
+			sourceTree = "<group>";
+		};
 		2F6512272C7E395000D6F9C9 = {
 			isa = PBXGroup;
 			children = (
@@ -76,13 +116,16 @@
 		2F6512322C7E395000D6F9C9 /* Promptful */ = {
 			isa = PBXGroup;
 			children = (
-				2FCAE08C2C7E494800AE151D /* Promptful.entitlements */,
+				2F5B27B02C83751E004D09BA /* Info.plist */,
 				2F6512332C7E395000D6F9C9 /* PromptfulApp.swift */,
+				2FCAE08C2C7E494800AE151D /* Promptful.entitlements */,
 				2F6512372C7E395100D6F9C9 /* Assets.xcassets */,
-				2F6512462C7E429E00D6F9C9 /* Model */,
-				2F6512472C7E42A900D6F9C9 /* ViewModel */,
+				2F6512462C7E429E00D6F9C9 /* DataObject */,
+				2F6512472C7E42A900D6F9C9 /* ObservableObject */,
+				2F5B27AF2C8371F0004D09BA /* ViewComponents */,
 				2F6512482C7E42B200D6F9C9 /* View */,
 				2F6512492C7E42BF00D6F9C9 /* Extensions */,
+				2F5B27A02C836E27004D09BA /* Utilities */,
 				2F6512392C7E395100D6F9C9 /* Preview Content */,
 			);
 			path = Promptful;
@@ -96,33 +139,35 @@
 			path = "Preview Content";
 			sourceTree = "<group>";
 		};
-		2F6512462C7E429E00D6F9C9 /* Model */ = {
+		2F6512462C7E429E00D6F9C9 /* DataObject */ = {
 			isa = PBXGroup;
 			children = (
 				2FCAE0872C7E434A00AE151D /* Promptful.xcdatamodeld */,
 				2F65123C2C7E395100D6F9C9 /* Persistence.swift */,
-				2F5B279C2C834F8D004D09BA /* focusField.swift */,
+				2F5B279C2C834F8D004D09BA /* FocusField.swift */,
+				2F5B27A92C8370A6004D09BA /* BiometricService.swift */,
 			);
-			path = Model;
+			path = DataObject;
 			sourceTree = "<group>";
 		};
-		2F6512472C7E42A900D6F9C9 /* ViewModel */ = {
+		2F6512472C7E42A900D6F9C9 /* ObservableObject */ = {
 			isa = PBXGroup;
 			children = (
-				2FCAE08A2C7E461900AE151D /* PromptViewModel.swift */,
+				2FCAE08A2C7E461900AE151D /* PromptStore.swift */,
+				2F5B27AB2C837110004D09BA /* BiometricStore.swift */,
+				2F5B27AD2C837149004D09BA /* SyncMonitor.swift */,
 			);
-			path = ViewModel;
+			path = ObservableObject;
 			sourceTree = "<group>";
 		};
 		2F6512482C7E42B200D6F9C9 /* View */ = {
 			isa = PBXGroup;
 			children = (
+				2FD6FB222C837BF900AFDD82 /* AuthenticationView.swift */,
+				2FD6FB242C837C0100AFDD82 /* LoginView.swift */,
 				2F6512352C7E395000D6F9C9 /* ContentView.swift */,
 				2FCAE0952C7E58C700AE151D /* PromptView.swift */,
-				2FCAE08F2C7E54FC00AE151D /* ListCellView.swift */,
-				2FCAE0932C7E576C00AE151D /* EditPromptsView.swift */,
-				2FCAE08D2C7E4F9700AE151D /* TextEditorView.swift */,
-				2F6E80202C7F72FA0033A839 /* TitleTextFieldView.swift */,
+				2F5B279E2C836E03004D09BA /* SettingsView.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -207,20 +252,29 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				2F5B279F2C836E03004D09BA /* SettingsView.swift in Sources */,
 				2FCAE08E2C7E4F9700AE151D /* TextEditorView.swift in Sources */,
+				2F5B27AC2C837110004D09BA /* BiometricStore.swift in Sources */,
 				2FCAE0902C7E54FC00AE151D /* ListCellView.swift in Sources */,
+				2FD6FB252C837C0100AFDD82 /* LoginView.swift in Sources */,
 				2F65123D2C7E395100D6F9C9 /* Persistence.swift in Sources */,
-				2FCAE08B2C7E461900AE151D /* PromptViewModel.swift in Sources */,
+				2FCAE08B2C7E461900AE151D /* PromptStore.swift in Sources */,
 				2F6512362C7E395000D6F9C9 /* ContentView.swift in Sources */,
 				2F6E801F2C7E899D0033A839 /* Color.swift in Sources */,
+				2F5B27AE2C837149004D09BA /* SyncMonitor.swift in Sources */,
 				2F6512342C7E395000D6F9C9 /* PromptfulApp.swift in Sources */,
 				2FCAE0892C7E434A00AE151D /* Promptful.xcdatamodeld in Sources */,
-				2F5B279D2C834F8D004D09BA /* focusField.swift in Sources */,
+				2F5B279D2C834F8D004D09BA /* FocusField.swift in Sources */,
 				2F6E80212C7F72FA0033A839 /* TitleTextFieldView.swift in Sources */,
+				2F5B27AA2C8370A6004D09BA /* BiometricService.swift in Sources */,
 				2FCAE0942C7E576C00AE151D /* EditPromptsView.swift in Sources */,
 				2FCAE0962C7E58C700AE151D /* PromptView.swift in Sources */,
+				2F5B27A22C836E63004D09BA /* ButtonStyles.swift in Sources */,
 				2FCAE0982C7E5AF300AE151D /* View.swift in Sources */,
+				2FD6FB232C837BF900AFDD82 /* AuthenticationView.swift in Sources */,
 				2FCAE0922C7E56D200AE151D /* PersistenceController.swift in Sources */,
+				2F5B27A42C836E75004D09BA /* Confetti.swift in Sources */,
+				2F5B27A62C836EC6004D09BA /* HelperFunctions.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -358,6 +412,8 @@
 				DEVELOPMENT_TEAM = L4UU7WP4CE;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = Promptful/Info.plist;
+				INFOPLIST_KEY_NSFaceIDUsageDescription = "Access to Biometric Data is required to use Face ID.";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
@@ -388,6 +444,8 @@
 				DEVELOPMENT_TEAM = L4UU7WP4CE;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = Promptful/Info.plist;
+				INFOPLIST_KEY_NSFaceIDUsageDescription = "Access to Biometric Data is required to use Face ID.";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
@@ -436,8 +494,7 @@
 				2FCAE0882C7E434A00AE151D /* Promptful.xcdatamodel */,
 			);
 			currentVersion = 2FCAE0882C7E434A00AE151D /* Promptful.xcdatamodel */;
-			name = Promptful.xcdatamodeld;
-			path = "/Users/nabbit/Library/CloudStorage/OneDrive-Personal/Development/Repositories/Promptful/Promptful/Model/Promptful.xcdatamodeld";
+			path = Promptful.xcdatamodeld;
 			sourceTree = "<group>";
 			versionGroupType = wrapper.xcdatamodel;
 		};

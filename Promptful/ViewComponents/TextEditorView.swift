@@ -9,8 +9,8 @@ import SwiftUI
 
 struct TextEditorView: View {
     @Environment(\.colorScheme) private var colorScheme
-    @Binding var string: String
     @State var textEditorHeight : CGFloat = 20
+    @Binding var string: String
     @FocusState private var contentEditorInFocus: Bool
 
     var body: some View {

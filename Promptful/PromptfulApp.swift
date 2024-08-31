@@ -9,14 +9,16 @@ import SwiftUI
 
 @main
 struct PromptfulApp: App {
+    @StateObject private var promptViewModel = PromptStore()
+    @StateObject private var biometricStore = BiometricStore()
     let persistenceController = PersistenceController.shared
-    @StateObject private var promptViewModel = PromptViewModel()
 
     var body: some Scene {
         WindowGroup {
-            ContentView()
+            AuthenticationView()
                 .environment(\.managedObjectContext, persistenceController.container.viewContext)
                 .environmentObject(self.promptViewModel)
+                .environmentObject(self.biometricStore)
         }
     }
 }

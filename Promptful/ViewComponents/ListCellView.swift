@@ -9,7 +9,7 @@ import SwiftUI
 
 struct ListCellView: View {
     @Environment(\.colorScheme) private var colorScheme
-    @EnvironmentObject var vm: PromptViewModel
+    @EnvironmentObject var promptStore: PromptStore
     var prompt: PromptEntity
     
     var body: some View {
@@ -61,5 +61,5 @@ struct ListCellView: View {
 
 #Preview {
     ListCellView(prompt: PersistenceController.shared.samplePrompt)
-        .environmentObject(PromptViewModel())
+        .environmentObject(PromptStore())
 }
