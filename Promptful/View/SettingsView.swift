@@ -13,6 +13,7 @@ struct SettingsView: View {
     @ObservedObject var syncMonitor: SyncMonitor = SyncMonitor.shared
     @State var canShowSyncError: Bool = false
     @State var showConfetti: Bool = false
+    @AppStorage("appearance") var appearance: AppearanceType = .automatic
     // Fill in App ID when app is added to appstore connect!
     private let appName: String = "Promptful App"
     private let appID: String = "6670175583"
@@ -29,6 +30,19 @@ struct SettingsView: View {
     
     var body: some View {
         Form {
+            Section(header: Text("\(Image(systemName: "slider.horizontal.3")) Preferences")) {
+                Group {
+                    HStack {
+                        Image(systemName: appearance.symbolChoice)
+                            .foregroundStyle(appearance.primarySymbolColor, appearance.secondarySymbolColor)
+                        Picker(selection: $appearance, label: Text("System Appearence")) {
+                            Text("Auto").tag(AppearanceType.automatic)
+                            Text("Light").tag(AppearanceType.light)
+                            Text("Dark").tag(AppearanceType.dark)
+                        }
+                    }
+                }
+            }
             Section(header: Text("\(Image(systemName: "lock")) Security")) {
                 Group {
                     HStack {

@@ -32,6 +32,7 @@
 		2FCAE0982C7E5AF300AE151D /* View.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2FCAE0972C7E5AF300AE151D /* View.swift */; };
 		2FD6FB232C837BF900AFDD82 /* AuthenticationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2FD6FB222C837BF900AFDD82 /* AuthenticationView.swift */; };
 		2FD6FB252C837C0100AFDD82 /* LoginView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2FD6FB242C837C0100AFDD82 /* LoginView.swift */; };
+		2FD6FB292C85BC1600AFDD82 /* Appearence.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2FD6FB282C85BC1600AFDD82 /* Appearence.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -63,6 +64,7 @@
 		2FCAE0972C7E5AF300AE151D /* View.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = View.swift; sourceTree = "<group>"; };
 		2FD6FB222C837BF900AFDD82 /* AuthenticationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthenticationView.swift; sourceTree = "<group>"; };
 		2FD6FB242C837C0100AFDD82 /* LoginView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginView.swift; sourceTree = "<group>"; };
+		2FD6FB282C85BC1600AFDD82 /* Appearence.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Appearence.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -146,6 +148,7 @@
 				2F65123C2C7E395100D6F9C9 /* Persistence.swift */,
 				2F5B279C2C834F8D004D09BA /* FocusField.swift */,
 				2F5B27A92C8370A6004D09BA /* BiometricService.swift */,
+				2FD6FB282C85BC1600AFDD82 /* Appearence.swift */,
 			);
 			path = DataObject;
 			sourceTree = "<group>";
@@ -267,6 +270,7 @@
 				2F5B279D2C834F8D004D09BA /* FocusField.swift in Sources */,
 				2F6E80212C7F72FA0033A839 /* TitleTextFieldView.swift in Sources */,
 				2F5B27AA2C8370A6004D09BA /* BiometricService.swift in Sources */,
+				2FD6FB292C85BC1600AFDD82 /* Appearence.swift in Sources */,
 				2FCAE0942C7E576C00AE151D /* EditPromptsView.swift in Sources */,
 				2FCAE0962C7E58C700AE151D /* PromptView.swift in Sources */,
 				2F5B27A22C836E63004D09BA /* ButtonStyles.swift in Sources */,
