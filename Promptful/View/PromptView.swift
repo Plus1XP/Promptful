@@ -95,11 +95,11 @@ struct PromptView: View {
             self.promptStore.fetchEntries()
         }
         .searchable(text: $searchText, prompt: "Search Quotes..") {
-            if self.searchText.count > 2 {
-                ForEach(self.promptStore.prompts, id: \.self) { entry in
-                    Text(entry.author!).searchCompletion(entry.author!)
-                }
-            }
+//            if self.searchText.count > 2 {
+//                ForEach(self.promptStore.prompts, id: \.self) { entry in
+//                    Text(entry.author!).searchCompletion(entry.author!)
+//                }
+//            }
         }
         .onChange(of: searchText) {
             self.promptStore.searchNotes(with: searchText)
